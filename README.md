@@ -1,2 +1,1 @@
-This is a coding project for Research in Mathematics.
-You may use however you please.
+All blue is the game called "lights out," which is where you press buttons to change lights to on or off or other such states.
