@@ -57,7 +57,7 @@ button, select, input { margin: 5px; }
   <button id="loadBtn">Load</button>
   States (k):
   <input type="number" id="stateCount" value="2" min="2" max="8">
-  <!-- Solver buttons -->
+<!---------- Solver's/Unsolver's Buttons ---------->
   <button id="solveBtn">Solve</button>
   <button id="unsolveBtn">Unsolve</button>
 </div>
@@ -83,13 +83,13 @@ let k=2;
 let linear=false;
 let graphType="grid";
 
-/* ---------- CUSTOM MODE STATE (UNCHANGED) ---------- */
+/* ---------- T/F for editing states ---------- */
 let customEditing=false;
 let addingNode=false;
 let addingEdge=false;
 let edgeStart=null;
 
-/* ---------- UNDO / SAVE ---------- */
+/* ---------- Undo and Save ---------- */
 let undoStack=[];
 let savedState=null;
 
@@ -118,7 +118,7 @@ function loadGame(){
   });
 }
 
-/* ---------- CORE ---------- */
+/* ---------- Reset ---------- */
 function reset(){
   svg.innerHTML="";
   nodes=[]; labels=[];
@@ -155,7 +155,7 @@ function createNode(x,y){
   c.onclick=e=>{
     e.stopPropagation();
 
-    /* ---- CUSTOM MODE (UNCHANGED) ---- */
+    /* ---- Additional Editing ---- */
     if(graphType==="custom" && customEditing && addingEdge){
       if(edgeStart===null){
         edgeStart=i;
@@ -199,7 +199,7 @@ function update(i){
   labels[i].style.display=displayMode==="numbers"?"block":"none";
 }
 
-/* ---------- EDGES (RESTORED) ---------- */
+/* ---------- Edges ---------- */
 function drawEdges(){
   const old=svg.querySelector("g");
   if(old) old.remove();
@@ -239,7 +239,7 @@ function clearEdgeSelection(){
   edgeStart=null;
 }
 
-/* ---------- PRESET GRAPHS (RESTORED) ---------- */
+/* ---------- Grid and Ring ---------- */
 function buildGrid(r,c){
   reset();
   const sx=80, sy=80;
@@ -271,7 +271,7 @@ function buildRing(n){
   drawEdges();
 }
 
-/* ---------- LINEARIZATION (RESTORED) ---------- */
+/* ---------- Make it a line ---------- */
 function animateLinearize(){
   const start=positions.map(p=>({...p}));
   const end=[];
@@ -318,7 +318,7 @@ stateCount.onchange=e=>{
   nodes.forEach((n,i)=>{n.dataset.state%=k;update(i)});
 };
 
-/* ---------- CUSTOM MODE UI (UNCHANGED) ---------- */
+/* ---------- Custom UI ---------- */
 editToggleBtn.onclick=()=>{
   customEditing=!customEditing;
   editToggleBtn.textContent=customEditing?"Stop Editing":"Start Editing";
@@ -363,7 +363,7 @@ svg.onclick=e=>{
 
 graphMode.onchange();
 
-/* ---------- SOLVER ADDITION ---------- */
+/* ---------- Solver ---------- */
 
 let solverActive = false;
 
